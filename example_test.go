@@ -27,7 +27,6 @@ paragraph text
 	for _, header := range toc {
 		fmt.Println(header)
 	}
-	_ = toc
 	// Output:
 	// {toc:01 1 Title}
 	// {toc:02 2 Section 1}
