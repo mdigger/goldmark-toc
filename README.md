@@ -5,7 +5,7 @@
 [Goldmark](https://github.com/yuin/goldmark) extension for generating table of content.
 
 ```go
-var markdown = converter.New() // initialize converter
+var markdown = withtoc.New() // initialize converter
 var source = []byte(`
 # Title
 paragraph text

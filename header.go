@@ -1,4 +1,4 @@
-package converter
+package withtoc
 
 // Header holds the data about a header.
 type Header struct {

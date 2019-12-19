@@ -1,15 +1,15 @@
-package converter_test
+package withtoc_test
 
 import (
 	"fmt"
 	"io/ioutil"
 	"log"
 
-	converter "github.com/mdigger/goldmark-toc"
+	withtoc "github.com/mdigger/goldmark-toc"
 )
 
 func Example() {
-	var markdown = converter.New() // initialize converter
+	var markdown = withtoc.New() // initialize converter
 	var source = []byte(`
 # Title
 paragraph text

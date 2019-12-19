@@ -1,6 +1,6 @@
 // Package converter adds the ability to get a table of contents to the
 // goldmark parser.
-package converter
+package withtoc
 
 import (
 	"io"
@@ -13,9 +13,7 @@ import (
 // Converter is markdown converting function.
 type Converter = func(source []byte, writer io.Writer) ([]Header, error)
 
-// New return markdown converter with table of content support.
-func New(options ...goldmark.Option) Converter {
-	var m = goldmark.New(options...)
+func markdown(m goldmark.Markdown) Converter {
 	m.Parser().AddOptions(
 		parser.WithAttribute(),
 		parser.WithAutoHeadingID(),
@@ -33,4 +31,14 @@ func New(options ...goldmark.Option) Converter {
 		}
 		return nil, nil
 	}
+}
+
+// New return markdown converter with table of content support.
+func New(options ...goldmark.Option) Converter {
+	return markdown(goldmark.New(options...))
+}
+
+// Convert from markdown to html and return TOC.
+func Convert(m goldmark.Markdown, source []byte, writer io.Writer) ([]Header, error) {
+	return markdown(m)(source, writer)
 }
