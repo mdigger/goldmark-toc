@@ -19,10 +19,13 @@ func newIDs() parser.IDs {
 	}
 }
 
+// IDFormat define the format of generated header ID.
+var IDFormat = "toc:%02d"
+
 func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
 	for {
 		s.counter++
-		result := fmt.Sprintf("toc:%02d", s.counter)
+		result := fmt.Sprintf(IDFormat, s.counter)
 		if _, ok := s.values[result]; !ok {
 			s.values[result] = true
 			return []byte(result)
