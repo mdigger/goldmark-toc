@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	withtoc "github.com/mdigger/goldmark-toc"
+	withtoc "github.com/mdigger/goldmark-withtoc"
 )
 
 func Example() {

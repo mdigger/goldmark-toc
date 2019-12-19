@@ -1,4 +1,4 @@
-module github.com/mdigger/goldmark-toc
+module github.com/mdigger/goldmark-withtoc
 
 go 1.13
 
