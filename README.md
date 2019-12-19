@@ -1,6 +1,6 @@
-# goldmark-toc
+# goldmark-withtoc
 
-[![GoDoc](https://godoc.org/github.com/mdigger/goldmark-toc?status.svg)](https://godoc.org/github.com/mdigger/goldmark-toc)
+[![GoDoc](https://godoc.org/github.com/mdigger/goldmark-withtoc?status.svg)](https://godoc.org/github.com/mdigger/goldmark-withtoc)
 
 [Goldmark](https://github.com/yuin/goldmark) extension for generating table of content.
 
