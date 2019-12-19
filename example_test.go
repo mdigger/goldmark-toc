@@ -15,7 +15,7 @@ func Example() {
 paragraph text
 ## Section 1
 paragraph text
-## Subsection 1.1
+### Subsection 1.1
 paragraph text
 ## Section 2
 paragraph text
@@ -25,11 +25,11 @@ paragraph text
 		log.Fatal(err)
 	}
 	for _, header := range toc {
-		fmt.Println(header)
+		fmt.Printf("%+v\n", header)
 	}
 	// Output:
-	// {toc:01 1 Title}
-	// {toc:02 2 Section 1}
-	// {toc:03 2 Subsection 1.1}
-	// {toc:04 2 Section 2}
+	// {ID:toc:01 Level:1 Text:Title}
+	// {ID:toc:02 Level:2 Text:Section 1}
+	// {ID:toc:03 Level:3 Text:Subsection 1.1}
+	// {ID:toc:04 Level:2 Text:Section 2}
 }

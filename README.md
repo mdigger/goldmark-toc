@@ -11,7 +11,7 @@
 paragraph text
 ## Section 1
 paragraph text
-## Subsection 1.1
+### Subsection 1.1
 paragraph text
 ## Section 2
 paragraph text
