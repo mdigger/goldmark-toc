@@ -9,11 +9,11 @@ var markdown = converter.New() // initialize converter
 var source = []byte(`
 # Title
 paragraph text
-## Section 1
+## Section *1*
 paragraph text
-### Subsection 1.1
+### Subsection *1.1*
 paragraph text
-## Section 2
+## Section *2*
 paragraph text
 `)
 toc, err := markdown(source, os.Stdout)
