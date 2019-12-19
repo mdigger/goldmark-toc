@@ -9,7 +9,6 @@ import (
 )
 
 func Example() {
-	var markdown = withtoc.New() // initialize converter
 	var source = []byte(`
 # Title
 paragraph text
@@ -20,7 +19,7 @@ paragraph text
 ## Section *2*
 paragraph text
 `)
-	toc, err := markdown(source, ioutil.Discard)
+	toc, err := withtoc.Convert(source, ioutil.Discard)
 	if err != nil {
 		log.Fatal(err)
 	}

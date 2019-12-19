@@ -1,4 +1,4 @@
-// Package converter adds the ability to get a table of contents to the
+// Package withtoc adds the ability to get a table of contents to the
 // goldmark parser.
 package withtoc
 
@@ -10,10 +10,11 @@ import (
 	"github.com/yuin/goldmark/util"
 )
 
-// Converter is markdown converting function.
-type Converter = func(source []byte, writer io.Writer) ([]Header, error)
+// ConverterFunc is markdown converting function.
+type ConverterFunc = func(source []byte, writer io.Writer) ([]Header, error)
 
-func markdown(m goldmark.Markdown) Converter {
+// Markdown extends initialied goldmark.Markdown and return converter function.
+func Markdown(m goldmark.Markdown) ConverterFunc {
 	m.Parser().AddOptions(
 		parser.WithAttribute(),
 		parser.WithAutoHeadingID(),
@@ -34,11 +35,13 @@ func markdown(m goldmark.Markdown) Converter {
 }
 
 // New return markdown converter with table of content support.
-func New(options ...goldmark.Option) Converter {
-	return markdown(goldmark.New(options...))
+func New(options ...goldmark.Option) ConverterFunc {
+	return Markdown(goldmark.New(options...))
 }
 
-// Convert from markdown to html and return TOC.
-func Convert(m goldmark.Markdown, source []byte, writer io.Writer) ([]Header, error) {
-	return markdown(m)(source, writer)
+var defaultMarkdown = Markdown(goldmark.New())
+
+// Convert from markdown to html with default options and return TOC.
+func Convert(source []byte, writer io.Writer) ([]Header, error) {
+	return defaultMarkdown(source, writer)
 }
