@@ -1,4 +1,4 @@
-// Package withtoc adds the ability to get a table of contents to the
+// Package toc adds the ability to get a table of contents to the
 // goldmark parser.
 package toc
 
