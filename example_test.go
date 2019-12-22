@@ -27,8 +27,8 @@ paragraph text
 		fmt.Printf("%+v\n", header)
 	}
 	// Output:
-	// {ID:toc:01 Level:1 Text:Title}
-	// {ID:toc:02 Level:2 Text:Section 1}
-	// {ID:toc:03 Level:3 Text:Subsection 1.1}
-	// {ID:toc:04 Level:2 Text:Section 2}
+	// {ID:title Level:1 Text:Title}
+	// {ID:section-1 Level:2 Text:Section 1}
+	// {ID:subsection-1-1 Level:3 Text:Subsection 1.1}
+	// {ID:section-2 Level:2 Text:Section 2}
 }
