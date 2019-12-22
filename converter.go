@@ -23,7 +23,7 @@ func Markdown(m goldmark.Markdown) ConverterFunc {
 		),
 	)
 	return func(source []byte, writer io.Writer) ([]Header, error) {
-		var ctx = parser.NewContext(parser.WithIDs(newIDs()))
+		var ctx = parser.NewContext(parser.WithIDs(newIDs(Lang)))
 		if err := m.Convert(source, writer, parser.WithContext(ctx)); err != nil {
 			return nil, err
 		}

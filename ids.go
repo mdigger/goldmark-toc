@@ -3,36 +3,43 @@ package withtoc
 import (
 	"fmt"
 
+	"github.com/gosimple/slug"
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/util"
 )
 
+// Lang define the default language for generating slug id fo headers.
+var Lang = ""
+
 type ids struct {
-	counter int
-	values  map[string]interface{}
+	lang   string
+	values map[string]struct{}
 }
 
-func newIDs() parser.IDs {
+func newIDs(lang string) parser.IDs {
 	return &ids{
-		values: make(map[string]interface{}),
+		lang:   lang,
+		values: make(map[string]struct{}),
 	}
 }
 
-// IDFormat define the format of generated header ID.
-var IDFormat = "toc:%02d"
-
 func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
+	var (
+		slugStr = slug.MakeLang(
+			util.BytesToReadOnlyString(value), s.lang)
+		counter = 1
+		result  = slugStr
+	)
 	for {
-		s.counter++
-		result := fmt.Sprintf(IDFormat, s.counter)
 		if _, ok := s.values[result]; !ok {
-			s.values[result] = true
+			s.values[result] = struct{}{}
 			return []byte(result)
 		}
+		result = fmt.Sprintf("%s-%d", slugStr, counter)
 	}
 }
 
 func (s *ids) Put(value []byte) {
-	s.values[util.BytesToReadOnlyString(value)] = true
+	s.values[util.BytesToReadOnlyString(value)] = struct{}{}
 }
