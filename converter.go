@@ -19,7 +19,7 @@ func Markdown(m goldmark.Markdown) ConverterFunc {
 		parser.WithAttribute(),
 		parser.WithAutoHeadingID(),
 		parser.WithASTTransformers(
-			util.Prioritized(defaultTransformer, 0),
+			util.Prioritized(defaultTransformer, 1000),
 		),
 	)
 	return func(source []byte, writer io.Writer) ([]Header, error) {
