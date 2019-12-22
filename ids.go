@@ -1,4 +1,4 @@
-package withtoc
+package toc
 
 import (
 	"fmt"

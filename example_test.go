@@ -1,11 +1,11 @@
-package withtoc_test
+package toc_test
 
 import (
 	"fmt"
 	"io/ioutil"
 	"log"
 
-	withtoc "github.com/mdigger/goldmark-withtoc"
+	toc "github.com/mdigger/goldmark-toc"
 )
 
 func Example() {
@@ -19,7 +19,7 @@ paragraph text
 ## Section *2*
 paragraph text
 `)
-	toc, err := withtoc.Convert(source, ioutil.Discard)
+	toc, err := toc.Convert(source, ioutil.Discard)
 	if err != nil {
 		log.Fatal(err)
 	}

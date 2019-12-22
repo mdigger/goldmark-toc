@@ -1,6 +1,6 @@
 // Package withtoc adds the ability to get a table of contents to the
 // goldmark parser.
-package withtoc
+package toc
 
 import (
 	"io"
