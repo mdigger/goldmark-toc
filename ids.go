@@ -28,14 +28,15 @@ func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
 	var (
 		slugStr = slug.MakeLang(
 			util.BytesToReadOnlyString(value), s.lang)
-		counter = 1
+		counter int
 		result  = slugStr
 	)
 	for {
 		if _, ok := s.values[result]; !ok {
 			s.values[result] = struct{}{}
-			return []byte(result)
+			return util.StringToReadOnlyBytes(result)
 		}
+		counter++
 		result = fmt.Sprintf("%s-%d", slugStr, counter)
 	}
 }
