@@ -25,8 +25,8 @@ for _, header := range toc {
 ```
 
 ```go
-{ID:title Level:1 Text:Title}
-{ID:section-1 Level:2 Text:Section 1}
-{ID:subsection-1-1 Level:3 Text:Subsection 1.1}
-{ID:section-2 Level:2 Text:Section 2}
+{Level:1 Text:Title ID:title}
+{Level:2 Text:Section 1 ID:section-1}
+{Level:3 Text:Subsection 1.1 ID:subsection-1-1}
+{Level:2 Text:Section 2 ID:section-2}
 ```

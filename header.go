@@ -8,9 +8,9 @@ import (
 
 // Header holds the data about a header.
 type Header struct {
-	ID    string
 	Level int
 	Text  string
+	ID    string
 }
 
 // MarkdownHeaders writes table of content in markdown format.

@@ -1,7 +1,11 @@
 package toc
 
 import (
+	"bytes"
+	"regexp"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
@@ -9,17 +13,24 @@ import (
 	"github.com/yuin/goldmark/util"
 )
 
-var tocResultKey = parser.NewContextKey()
-
 type tocTransformer struct{}
 
-var defaultTransformer = new(tocTransformer)
+var (
+	tocResultKey          = parser.NewContextKey()
+	defaultTocTransformer = new(tocTransformer)
+	reWords               = regexp.MustCompile(`[\S]+`)
+)
+
+var isWordsDivider = func(c rune) bool {
+	return !unicode.IsLetter(c) && !unicode.IsNumber(c)
+}
 
 func (t *tocTransformer) Transform(n *ast.Document, reader text.Reader, pc parser.Context) {
 	var (
-		inHeading   bool
-		toc         = make([]Header, 0, 10)
-		headingText strings.Builder
+		inHeading    bool
+		toc          = make([]Header, 0, 100)
+		headingText  strings.Builder
+		words, chars int
 	)
 	ast.Walk(n, func(n ast.Node, entering bool) (ast.WalkStatus, error) {
 		switch n.Kind() {
@@ -38,11 +49,22 @@ func (t *tocTransformer) Transform(n *ast.Document, reader text.Reader, pc parse
 				toc = append(toc, header)
 			}
 		case ast.KindText, ast.KindString:
-			if inHeading && entering {
-				headingText.Write(n.Text(reader.Source()))
+			if !entering {
+				break
 			}
+			var text = n.Text(reader.Source())
+			if inHeading {
+				headingText.Write(text)
+			}
+			chars += utf8.RuneCount(text)
+			words += len(bytes.FieldsFunc(text, isWordsDivider))
+			// fmt.Printf("%q\n", bytes.FieldsFunc(text, isPunct))
 		}
 		return ast.WalkContinue, nil
 	})
-	pc.Set(tocResultKey, toc)
+	pc.Set(tocResultKey, &Info{
+		Headers: toc,
+		Words:   words,
+		Chars:   chars,
+	})
 }
