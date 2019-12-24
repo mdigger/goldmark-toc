@@ -20,7 +20,7 @@ func Markdown(m goldmark.Markdown) ConverterFunc {
 		parser.WithAttribute(),
 		parser.WithAutoHeadingID(),
 		parser.WithASTTransformers(
-			util.Prioritized(defaultTocTransformer, 1000),
+			util.Prioritized(defaultTransformer, 1000),
 		),
 	)
 	return func(source []byte, writer io.Writer) (*Info, error) {

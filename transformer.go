@@ -13,19 +13,19 @@ import (
 	"github.com/yuin/goldmark/util"
 )
 
-type tocTransformer struct{}
+type transformer struct{}
 
 var (
-	tocResultKey          = parser.NewContextKey()
-	defaultTocTransformer = new(tocTransformer)
-	reWords               = regexp.MustCompile(`[\S]+`)
+	tocResultKey       = parser.NewContextKey()
+	defaultTransformer = new(transformer)
+	reWords            = regexp.MustCompile(`[\S]+`)
 )
 
 var isWordsDivider = func(c rune) bool {
 	return !unicode.IsLetter(c) && !unicode.IsNumber(c)
 }
 
-func (t *tocTransformer) Transform(n *ast.Document, reader text.Reader, pc parser.Context) {
+func (t *transformer) Transform(n *ast.Document, reader text.Reader, pc parser.Context) {
 	var (
 		inHeading    bool
 		toc          = make([]Header, 0, 100)
@@ -58,7 +58,6 @@ func (t *tocTransformer) Transform(n *ast.Document, reader text.Reader, pc parse
 			}
 			chars += utf8.RuneCount(text)
 			words += len(bytes.FieldsFunc(text, isWordsDivider))
-			// fmt.Printf("%q\n", bytes.FieldsFunc(text, isPunct))
 		}
 		return ast.WalkContinue, nil
 	})
