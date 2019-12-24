@@ -15,11 +15,11 @@ paragraph text
 ## Section *2*
 paragraph text
 `)
-toc, err := withtoc.Convert(source, ioutil.Discard)
+info, err := toc.Convert(source, ioutil.Discard)
 if err != nil {
 	log.Fatal(err)
 }
-for _, header := range toc {
+for _, header := range info.Headers {
 	fmt.Printf("%+v\n", header)
 }
 ```
