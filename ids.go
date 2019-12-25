@@ -17,7 +17,8 @@ type ids struct {
 	values map[string]struct{}
 }
 
-func newIDs(lang string) parser.IDs {
+// NewIDs return initialized ID generator for goldmark parser context.
+func NewIDs(lang string) parser.IDs {
 	return &ids{
 		lang:   lang,
 		values: make(map[string]struct{}),
@@ -29,8 +30,11 @@ func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
 		slugStr = slug.MakeLang(
 			util.BytesToReadOnlyString(value), s.lang)
 		counter int
-		result  = slugStr
 	)
+	if slugStr == "" {
+		slugStr = "id"
+	}
+	var result = slugStr
 	for {
 		if _, ok := s.values[result]; !ok {
 			s.values[result] = struct{}{}
@@ -43,4 +47,13 @@ func (s *ids) Generate(value []byte, kind ast.NodeKind) []byte {
 
 func (s *ids) Put(value []byte) {
 	s.values[util.BytesToReadOnlyString(value)] = struct{}{}
+}
+
+// WithIDs return new initializer parser option with ID generator.
+func WithIDs() parser.ParseOption {
+	return parser.WithContext(
+		parser.NewContext(
+			parser.WithIDs(NewIDs(Lang)),
+		),
+	)
 }

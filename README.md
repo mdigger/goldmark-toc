@@ -14,6 +14,7 @@ paragraph text
 paragraph text
 ## Section *2*
 paragraph text
+## Заголовок на русском
 `)
 info, err := toc.Convert(source, ioutil.Discard)
 if err != nil {
@@ -29,4 +30,5 @@ for _, header := range info.Headers {
 {Level:2 Text:Section 1 ID:section-1}
 {Level:3 Text:Subsection 1.1 ID:subsection-1-1}
 {Level:2 Text:Section 2 ID:section-2}
+{Level:2 Text:Заголовок на русском ID:zagolovok-na-russkom}
 ```
